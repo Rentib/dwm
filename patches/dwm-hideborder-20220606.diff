@@ -1,0 +1,34 @@
+From 03a3f7222416c3be997f393e5246e5f0560a5df3 Mon Sep 17 00:00:00 2001
+From: Georgios Oxinos <georgios.oxinos.extern@elinvar.de>
+Date: Fri, 19 Feb 2021 00:53:04 +0100
+Subject: [PATCH] [PATCH] [dwm][hideborder] patch that allows hiding border of
+ active client
+
+diff --git a/dwm.c b/dwm.c
+index 664c527..a5b5342 100644
+--- a/dwm.c
++++ b/dwm.c
+@@ -169,6 +169,7 @@ static void focus(Client *c);
+ static void focusin(XEvent *e);
+ static void focusmon(const Arg *arg);
+ static void focusstack(const Arg *arg);
++static void hideborder(const Arg *arg);
+ static Atom getatomprop(Client *c, Atom prop);
+ static int getrootptr(int *x, int *y);
+ static long getstate(Window w);
+@@ -856,6 +857,12 @@ focusstack(const Arg *arg)
+ 	}
+ }
+ 
++void
++hideborder(const Arg *arg)
++{
++	XSetWindowBorder(dpy, selmon->sel->win, scheme[SchemeSel][ColBg].pixel);
++}
++
+ Atom
+ getatomprop(Client *c, Atom prop)
+ {
+-- 
+2.27.0
+
