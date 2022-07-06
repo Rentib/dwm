@@ -1,21 +1,27 @@
 /* See LICENSE file for copyright and license details. */
 
+#define TERMINAL "st"
+
 /* appearance */
-static const unsigned int borderpx  = 1;        /* border pixel of windows */
+static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "monospace:size=10" };
+static const char *fonts[]          = { "monospace:size=10", "symbola:pixelsize=14:antialias=true:autohint=true" };
 static const char dmenufont[]       = "monospace:size=10";
-static const char col_gray1[]       = "#222222";
-static const char col_gray2[]       = "#444444";
-static const char col_gray3[]       = "#bbbbbb";
-static const char col_gray4[]       = "#eeeeee";
-static const char col_cyan[]        = "#005577";
+
+static const char norm_fg[]     = "#c1b0b0";
+static const char norm_bg[]     = "#181B28";
+static const char norm_border[] = "#12151F";
+
+static const char sel_fg[]      = "#f3f3f3";
+static const char sel_bg[]      = "#181B28";
+static const char sel_border[]  = "#C50ED2";
+
 static const char *colors[][3]      = {
-	/*               fg         bg         border   */
-	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
+  /*               fg           bg         border                         */
+  [SchemeNorm] = { norm_fg,     norm_bg,   norm_border }, // unfocused wins
+  [SchemeSel]  = { sel_fg,      sel_bg,    sel_border },  // the focused win
 };
 
 /* tagging */
@@ -26,9 +32,12 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
-	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
+	/* class             instance  title  tags mask  isfloating  monitor */
+  { "Brave-browser",   NULL,     NULL,  1 << 1,    0,          -1 },
+  { "discord",         NULL,     NULL,  1 << 8,    0,          -1 },
+  { "TelegramDesktop", NULL,     NULL,  1 << 8,    0,          -1 },
+  { "Steam",           NULL,     NULL,  1 << 7,    0,          -1 },
+  { "Minecraft 1.18",  NULL,     NULL,  1 << 7,    0,          -1 },
 };
 
 /* layout(s) */
@@ -41,11 +50,15 @@ static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "[]=",      tile },    /* first entry is default */
 	{ "><>",      NULL },    /* no layout function means floating behavior */
-	{ "[M]",      monocle },
+	{ "[M]",      monocle }, /* one window at a time */
 };
 
+#include "patches/shiftview.c"
+
+#include <X11/XF86keysym.h>
+
 /* key definitions */
-#define MODKEY Mod1Mask
+#define MODKEY Mod4Mask
 #define TAGKEYS(KEY,TAG) \
 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
@@ -57,44 +70,136 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
-static const char *termcmd[]  = { "st", NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, NULL };
+static const char *termcmd[]  = { TERMINAL, NULL };
 
 static Key keys[] = {
-	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
-	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
-	{ MODKEY,                       XK_b,      togglebar,      {0} },
-	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
-	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
-	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
-	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
-	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
-	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
-	{ MODKEY,                       XK_Return, zoom,           {0} },
-	{ MODKEY,                       XK_Tab,    view,           {0} },
-	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
-	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
-	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
-	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
-	{ MODKEY,                       XK_space,  setlayout,      {0} },
-	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
-	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
-	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
-	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
-	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
-	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
-	TAGKEYS(                        XK_1,                      0)
-	TAGKEYS(                        XK_2,                      1)
-	TAGKEYS(                        XK_3,                      2)
-	TAGKEYS(                        XK_4,                      3)
-	TAGKEYS(                        XK_5,                      4)
-	TAGKEYS(                        XK_6,                      5)
-	TAGKEYS(                        XK_7,                      6)
-	TAGKEYS(                        XK_8,                      7)
-	TAGKEYS(                        XK_9,                      8)
-	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+  /* modifier                     key           function           argument */
+  TAGKEYS(                        XK_1,                             0) // TAGKEYS for tab 1
+  TAGKEYS(                        XK_2,                             1) // TAGKEYS for tab 2
+  TAGKEYS(                        XK_3,                             2) // TAGKEYS for tab 3
+  TAGKEYS(                        XK_4,                             3) // TAGKEYS for tab 4
+  TAGKEYS(                        XK_5,                             4) // TAGKEYS for tab 5
+  TAGKEYS(                        XK_6,                             5) // TAGKEYS for tab 6
+  TAGKEYS(                        XK_7,                             6) // TAGKEYS for tab 7
+  TAGKEYS(                        XK_8,                             7) // TAGKEYS for tab 8
+  TAGKEYS(                        XK_9,                             8) // TAGKEYS for tab 9
+  { MODKEY,                       XK_0,         view,              {.ui = ~0 } }, // view all tabs
+  { MODKEY|ShiftMask,             XK_0,         tag,               {.ui = ~0 } }, // moves window to all tags
+
+  /* { MODKEY|Mod1Mask,              XK_0,         togglegaps,        {0} }, */
+  /* { MODKEY|Mod1Mask|ShiftMask,    XK_0,         defaultgaps,       {0} }, */
+  /* { MODKEY|Mod1Mask,              XK_minus,     incrgaps,          {.i = -3 } }, */
+  /* { MODKEY|Mod1Mask,              XK_equal,     incrgaps,          {.i = +3 } }, */
+  { MODKEY,                       XK_BackSpace, spawn,              SHCMD("") },
+  { MODKEY|ShiftMask,             XK_BackSpace, spawn,              SHCMD("") },
+
+  { MODKEY,                       XK_Tab,       shiftview,      {.i = +1 } }, // tab id + 1
+  { MODKEY|ShiftMask,             XK_Tab,       shiftview,      {.i = -1 } }, // tab id - 1
+  /* { MODKEY,                       XK_q,         layoutscroll,   {.i = -1 } }, // scroll through layouts */
+  { MODKEY|ShiftMask,             XK_q,         killclient,     {0} }, // kill focused process
+  /* { MODKEY,                       XK_w,         layoutscroll,   {.i = +1 } }, // scroll thorough layouts */
+  /* { MODKEY|ShiftMask,             XK_w,         spawn,           SHCMD(""), */
+  { MODKEY,                       XK_e,         setlayout,      {.v = &layouts[0]} }, // tiling
+  { MODKEY|ShiftMask,             XK_e,         quit,           {0} }, // exit DWM
+  { MODKEY,                       XK_r,         setlayout,      {.v = &layouts[1]} }, // floating
+  { MODKEY|ShiftMask,             XK_r,         setlayout,      {.v = &layouts[3]} }, // centered master
+  { MODKEY,                       XK_t,         setlayout,      {.v = &layouts[2]} }, // monocle
+  /* { MODKEY|ShiftMask,             XK_t,         spawn,           SHCMD("") }, */
+  /* { MODKEY,                       XK_y,         spawn,           SHCMD(TERMINAL " -e yt -r") }, */
+  /* { MODKEY|ShiftMask,             XK_y,         spawn,           SHCMD("yt -u") }, */
+  /* { MODKEY,                       XK_u,         spawn,           SHCMD(""), */
+  /* { MODKEY|ShiftMask,             XK_u,         spawn,           SHCMD(""), */
+  /* { modkey,                       XK_l,         spawn,           shcmd(""), */
+  /* { modkey|ShiftMask,             XK_l,         spawn,           shcmd(""), */
+  { MODKEY,                       XK_o,         incnmaster,     {.i = +1 } }, // add 1 client to master area
+  { MODKEY|ShiftMask,             XK_o,         incnmaster,     {.i = -1 } }, // subtract 1 client from master area
+  { MODKEY,                       XK_p,         spawn,           SHCMD("mpc toggle") }, // pause / unpause mpd
+  { MODKEY|ShiftMask,             XK_p,         spawn,           SHCMD("mpc stop") }, // stop mpd
+  /* { MODKEY,                       XK_bracketleft,         spawn,           shcmd(""), */
+  /* { MODKEY|ShiftMask,             XK_bracketleft,         spawn,           shcmd(""), */
+  /* { MODKEY,                       XK_bracketright,        spawn,           shcmd(""), */
+  /* { MODKEY|ShiftMask,             XK_bracketright,        spawn,           shcmd(""), */
+  /* { MODKEY,                       XK_backslash, spawn,           shcmd(""), */
+  /* { MODKEY|ShiftMask,             XK_backslash, spawn,           shcmd(""), */
+
+  /* { MODKEY,                       XK_a,         spawn,           SHCMD(""), */
+  /* { MODKEY|ShiftMask,             XK_a,         spawn,           SHCMD(""), */
+  /* { MODKEY,                       XK_s,         spawn,           SHCMD(""), */
+  /* { MODKEY|ShiftMask,             XK_s,         spawn,           SHCMD(""), */
+  { MODKEY,                       XK_d,         spawn,          {.v = dmenucmd } }, // dmenu
+  { MODKEY|ShiftMask,             XK_d,         spawn,           SHCMD("passmenu") }, // passmenu
+  { MODKEY,                       XK_f,         togglefullscr,  {0} }, // toggle full screen
+  { MODKEY|ShiftMask,             XK_f,         spawn,           SHCMD("$GUIFILEMANAGER") }, // start gui file manager
+  /* { MODKEY,                       XK_g,         spawn,           SHCMD(""), */
+  { MODKEY|ShiftMask,             XK_g,         spawn,           SHCMD("qjoypad --notray") },
+  { MODKEY,                       XK_h,         setmfact,       {.f = -0.01} }, // change window size
+  /* { MODKEY|ShiftMask,             XK_h,         spawn,           SHCMD("") }, */
+  { MODKEY,                       XK_j,         focusstack,     {.i = +1 } }, // change window focus
+  { MODKEY|ShiftMask,             XK_j,         pushdown,       {.i = +1 } }, // move window down inside client list
+  { MODKEY,                       XK_k,         focusstack,     {.i = -1 } }, // change window focus
+  { MODKEY|ShiftMask,             XK_k,         pushup,         {.i = -1 } }, // move window up inside client list
+  { MODKEY,                       XK_l,         setmfact,       {.f = +0.01} }, // change window size
+  /* { MODKEY|ShiftMask,             XK_l,         spawn,           SHCMD(""), */
+  /* { MODKEY,                       XK_semicolon, spawn,           SHCMD(""), */
+  /* { MODKEY|ShiftMask,             XK_semicolon, spawn,           SHCMD(""), */
+  /* { MODKEY,                       XK_apostrophe,spawn,           SHCMD(""), */
+  /* { MODKEY|ShiftMask,             XK_apostrophe,spawn,           SHCMD(""), */
+  { MODKEY,                       XK_Return,    spawn,          {.v = termcmd } }, // terminal
+  /* { MODKEY|ShiftMask,             XK_Return,    togglescratch,  {.ui = 0} }, // scratchpad */
+
+  /* { MODKEY|ShiftMask,             XK_z,         spawn,           SHCMD("$SCREENLOCK") }, // lock session */
+  /* { MODKEY|ShiftMask,             XK_z,         spawn,           SHCMD("") }, */
+  { MODKEY|ShiftMask,             XK_x,         spawn,           SHCMD("shutdown_script") },
+  /* { MODKEY|ShiftMask,             XK_x,         spawn,           SHCMD("prompt 'Do you want to shutdown?' 'shutdown now'") }, // shutdowns after confirmation */
+  /* { MODKEY|ShiftMask,             XK_z,         spawn,           SHCMD(""), */
+  /* { MODKEY,                       XK_c,         spawn,           SHCMD(""), */
+  /* { MODKEY|ShiftMask,             XK_c,         spawn,           SHCMD(""), */
+  /* { MODKEY,                       XK_v,         spawn,           SHCMD(""), */
+  /* { MODKEY|ShiftMask,             XK_v,         spawn,           SHCMD(""), */
+  { MODKEY,                       XK_b,         spawn,           SHCMD("$BROWSER") }, // start browser
+  { MODKEY|Mod1Mask,              XK_b,         togglebar,      {0} }, // toggle bar visibility
+  { MODKEY|Mod1Mask|ShiftMask,    XK_b,         hideborder,     {0} }, // toggle border visibility
+  /* { MODKEY,                       XK_n,         spawn,           SHCMD(""), */
+  { MODKEY|ShiftMask,             XK_n,         spawn,           SHCMD("restart-dunst") },
+  { MODKEY,                       XK_m,         spawn,           SHCMD(TERMINAL " -e ncmpcpp") }, // run ncmpcpp
+  /* { MODKEY|ShiftMask,             XK_m,         spawn,           SHCMD(""), */
+  { MODKEY,                       XK_comma,     spawn,           SHCMD("mpc prev") }, // prev song
+  { MODKEY|ShiftMask,             XK_comma,     spawn,           SHCMD("mpc seek -10") }, // backward 10s
+  { MODKEY,                       XK_period,    spawn,           SHCMD("mpc next") }, // next song
+  { MODKEY|ShiftMask,             XK_period,    spawn,           SHCMD("mpc seek +10") }, // forward 10s
+
+  { MODKEY,                       XK_space,     zoom,           {0} }, // sets master window
+  { MODKEY|ShiftMask,             XK_space,     togglefloating, {0} }, // toggles floating for selected window
+  { 0,                            XK_Print,     spawn,           SHCMD("screenshot 1") }, // screenshot
+  { ShiftMask,                    XK_Print,     spawn,           SHCMD("screenshot 2") }, // screenshot into clipboard
+  { MODKEY,                       XK_Page_Up,   shiftview,      {.i = -1 } }, // tab id - 1
+  { MODKEY,                       XK_Page_Down, shiftview,      {.i = +1 } }, // tab id + 1
+ 	{ MODKEY,			                  XK_Left,	    focusmon,	      {.i = -1 } },
+  { MODKEY|ShiftMask,		          XK_Left,	    tagmon,		      {.i = -1 } },
+  { MODKEY,			                  XK_Right,	    focusmon,	      {.i = +1 } },
+	{ MODKEY|ShiftMask,		          XK_Right,	    tagmon,		      {.i = +1 } },
+  
+  { MODKEY,                       XK_F1,        spawn,           SHCMD("man -Tpdf dwm | zathura -") },
+  /* { MODKEY,                       XK_F2,        spawn,           SHCMD("") }, */
+  /* { MODKEY,                       XK_F3,        spawn,           SHCMD("") }, */
+  /* { MODKEY,                       XK_F4,        spawn,           SHCMD("") }, */
+  /* { MODKEY,                       XK_F5,        spawn,           SHCMD("") }, */
+  /* { MODKEY,                       XK_F6,        spawn,           SHCMD("") }, */
+  { MODKEY,                       XK_F7,        spawn,           SHCMD("idea") },
+  /* { MODKEY,                       XK_F8,        spawn,           SHCMD("") }, */
+  /* { MODKEY,                       XK_F9,        spawn,           SHCMD("") }, */
+  /* { MODKEY,                       XK_F9,        spawn,           SHCMD(TERMINAL " -e bashmount") }, */
+  /* { MODKEY,                       XK_F10,       spawn,           SHCMD("") }, */
+  /* { MODKEY,                       XK_F11,       spawn,           SHCMD(  "mount-dmenu") }, //   mount usb */
+  /* { MODKEY,                       XK_F12,       spawn,           SHCMD("unmount-dmenu") }, // unmount usb */
+
+  { 0, XF86XK_AudioMute,                        spawn,           SHCMD("pamixer -t; kill -38 $(pidof dwmblocks)") },                 // volume mute
+  { 0, XF86XK_AudioLowerVolume,	                spawn,           SHCMD("pamixer --allow-boost -d 2; kill -38 $(pidof dwmblocks)") }, // volume down
+  { 0, XF86XK_AudioRaiseVolume,                 spawn,           SHCMD("pamixer --allow-boost -i 2; kill -38 $(pidof dwmblocks)") }, // volume up
+  { 0, XF86XK_AudioMicMute,                     spawn,           SHCMD("pactl set-source-mute @DEFAULT_SOURCE@ toggle") }, // mic mute
+  { 0, XF86XK_MonBrightnessDown,                spawn,           SHCMD("brightness -5") },  // brightness down
+  { 0, XF86XK_MonBrightnessUp,                  spawn,           SHCMD("brightness +5") },  // grightness up
 };
 
 /* button definitions */
