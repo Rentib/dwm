@@ -194,9 +194,9 @@ static Key keys[] = {
   /* { MODKEY,                       XK_F11,       spawn,           SHCMD(  "mount-dmenu") }, //   mount usb */
   /* { MODKEY,                       XK_F12,       spawn,           SHCMD("unmount-dmenu") }, // unmount usb */
 
-  { 0, XF86XK_AudioMute,                        spawn,           SHCMD("pamixer -t; kill -38 $(pidof dwmblocks)") },                 // volume mute
-  { 0, XF86XK_AudioLowerVolume,	                spawn,           SHCMD("pamixer --allow-boost -d 2; kill -38 $(pidof dwmblocks)") }, // volume down
-  { 0, XF86XK_AudioRaiseVolume,                 spawn,           SHCMD("pamixer --allow-boost -i 2; kill -38 $(pidof dwmblocks)") }, // volume up
+  { 0, XF86XK_AudioMute,                        spawn,           SHCMD("pamixer -t; kill -35 $(pidof slbar)") },                 // volume mute
+  { 0, XF86XK_AudioLowerVolume,	                spawn,           SHCMD("pamixer --allow-boost -d 2; kill -35 $(pidof slbar)") }, // volume down
+  { 0, XF86XK_AudioRaiseVolume,                 spawn,           SHCMD("pamixer --allow-boost -i 2; kill -35 $(pidof slbar)") }, // volume up
   { 0, XF86XK_AudioMicMute,                     spawn,           SHCMD("pactl set-source-mute @DEFAULT_SOURCE@ toggle") }, // mic mute
   { 0, XF86XK_MonBrightnessDown,                spawn,           SHCMD("brightness -5") },  // brightness down
   { 0, XF86XK_MonBrightnessUp,                  spawn,           SHCMD("brightness +5") },  // grightness up
