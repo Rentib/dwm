@@ -10,19 +10,25 @@ static const int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[]          = { "monospace:size=10", "symbola:pixelsize=14:antialias=true:autohint=true" };
 static const char dmenufont[]       = "monospace:size=10";
 
-static const char norm_fg[]     = "#c1b0b0";
-static const char norm_bg[]     = "#181B28";
-static const char norm_border[] = "#12151F";
-
-static const char sel_fg[]      = "#f3f3f3";
-static const char sel_bg[]      = "#181B28";
-static const char sel_border[]  = "#C50ED2";
-
-static const char *colors[][3]      = {
-  /*               fg           bg         border                         */
-  [SchemeNorm] = { norm_fg,     norm_bg,   norm_border }, // unfocused wins
-  [SchemeSel]  = { sel_fg,      sel_bg,    sel_border },  // the focused win
+#ifdef SWEET_DARK
+static const char *colors[][3] = {
+  /*               fg          bg         border */
+  [SchemeNorm] = { "#c1b0b0", "#181b28", "#12151f" },
+  [SchemeSel]  = { "#f3f3f3", "#181b28", "#c50ed2" },
 };
+#elif GRUVBOX
+static const char *colors[][3] = {
+  /*               fg          bg         border */
+  [SchemeNorm] = { "#9c8d74", "#282828", "#8f8072" },
+  [SchemeSel]  = { "#d4be98", "#282828", "#e76861" },
+};
+#else
+static const char *colors[][3] = {
+  /*               fg          bg         border */
+  [SchemeNorm] = { "#bbbbbb", "#222222", "#444444" },
+  [SchemeSel]  = { "#eeeeee", "#005577", "#005577" },
+};
+#endif
 
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
