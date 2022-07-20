@@ -97,48 +97,48 @@ static Key keys[] = {
   /* { MODKEY|Mod1Mask|ShiftMask,    XK_0,         defaultgaps,       {0} }, */
   /* { MODKEY|Mod1Mask,              XK_minus,     incrgaps,          {.i = -3 } }, */
   /* { MODKEY|Mod1Mask,              XK_equal,     incrgaps,          {.i = +3 } }, */
-  { MODKEY,                       XK_BackSpace, spawn,              SHCMD("") },
-  { MODKEY|ShiftMask,             XK_BackSpace, spawn,              SHCMD("") },
+  /* { MODKEY,                       XK_BackSpace, spawn,              SHCMD("") }, */
+  /* { MODKEY|ShiftMask,             XK_BackSpace, spawn,              SHCMD("") }, */
 
   { MODKEY,                       XK_Tab,       shiftview,      {.i = +1 } }, // tab id + 1
   { MODKEY|ShiftMask,             XK_Tab,       shiftview,      {.i = -1 } }, // tab id - 1
   /* { MODKEY,                       XK_q,         layoutscroll,   {.i = -1 } }, // scroll through layouts */
   { MODKEY|ShiftMask,             XK_q,         killclient,     {0} }, // kill focused process
   /* { MODKEY,                       XK_w,         layoutscroll,   {.i = +1 } }, // scroll thorough layouts */
-  /* { MODKEY|ShiftMask,             XK_w,         spawn,           SHCMD(""), */
+  /* { MODKEY|ShiftMask,             XK_w,         spawn,           SHCMD("") }, */
   { MODKEY,                       XK_e,         setlayout,      {.v = &layouts[0]} }, // tiling
   { MODKEY|ShiftMask,             XK_e,         quit,           {0} }, // exit DWM
   { MODKEY,                       XK_r,         setlayout,      {.v = &layouts[1]} }, // floating
-  { MODKEY|ShiftMask,             XK_r,         setlayout,      {.v = &layouts[3]} }, // centered master
+  /* { MODKEY|ShiftMask,             XK_r,         spawn,           SHCMD("") }, */
   { MODKEY,                       XK_t,         setlayout,      {.v = &layouts[2]} }, // monocle
   /* { MODKEY|ShiftMask,             XK_t,         spawn,           SHCMD("") }, */
-  /* { MODKEY,                       XK_y,         spawn,           SHCMD(TERMINAL " -e yt -r") }, */
-  /* { MODKEY|ShiftMask,             XK_y,         spawn,           SHCMD("yt -u") }, */
-  /* { MODKEY,                       XK_u,         spawn,           SHCMD(""), */
-  /* { MODKEY|ShiftMask,             XK_u,         spawn,           SHCMD(""), */
-  /* { modkey,                       XK_l,         spawn,           shcmd(""), */
-  /* { modkey|ShiftMask,             XK_l,         spawn,           shcmd(""), */
+  /* { MODKEY,                       XK_y,         spawn,           SHCMD("") }, */
+  /* { MODKEY|ShiftMask,             XK_y,         spawn,           SHCMD("") }, */
+  /* { MODKEY,                       XK_u,         spawn,           SHCMD("") }, */
+  /* { MODKEY|ShiftMask,             XK_u,         spawn,           SHCMD("") }, */
+  /* { modkey,                       XK_l,         spawn,           SHCMD("") }, */
+  /* { modkey|ShiftMask,             XK_l,         spawn,           SHCMD("") }, */
   { MODKEY,                       XK_o,         incnmaster,     {.i = +1 } }, // add 1 client to master area
   { MODKEY|ShiftMask,             XK_o,         incnmaster,     {.i = -1 } }, // subtract 1 client from master area
   { MODKEY,                       XK_p,         spawn,           SHCMD("mpc toggle") }, // pause / unpause mpd
   { MODKEY|ShiftMask,             XK_p,         spawn,           SHCMD("mpc stop") }, // stop mpd
-  /* { MODKEY,                       XK_bracketleft,         spawn,           shcmd(""), */
-  /* { MODKEY|ShiftMask,             XK_bracketleft,         spawn,           shcmd(""), */
-  /* { MODKEY,                       XK_bracketright,        spawn,           shcmd(""), */
-  /* { MODKEY|ShiftMask,             XK_bracketright,        spawn,           shcmd(""), */
-  /* { MODKEY,                       XK_backslash, spawn,           shcmd(""), */
-  /* { MODKEY|ShiftMask,             XK_backslash, spawn,           shcmd(""), */
+  /* { MODKEY,                       XK_bracketleft,         spawn,           SHCMD("") }, */
+  /* { MODKEY|ShiftMask,             XK_bracketleft,         spawn,           SHCMD("") }, */
+  /* { MODKEY,                       XK_bracketright,        spawn,           SHCMD("") }, */
+  /* { MODKEY|ShiftMask,             XK_bracketright,        spawn,           SHCMD("") }, */
+  /* { MODKEY,                       XK_backslash, spawn,           SHCMD("") }, */
+  /* { MODKEY|ShiftMask,             XK_backslash, spawn,           SHCMD("") }, */
 
-  /* { MODKEY,                       XK_a,         spawn,           SHCMD(""), */
-  /* { MODKEY|ShiftMask,             XK_a,         spawn,           SHCMD(""), */
-  /* { MODKEY,                       XK_s,         spawn,           SHCMD(""), */
-  /* { MODKEY|ShiftMask,             XK_s,         spawn,           SHCMD(""), */
+  /* { MODKEY,                       XK_a,         spawn,           SHCMD("") }, */
+  /* { MODKEY|ShiftMask,             XK_a,         spawn,           SHCMD("") }, */
+  /* { MODKEY,                       XK_s,         spawn,           SHCMD("") }, */
+  /* { MODKEY|ShiftMask,             XK_s,         spawn,           SHCMD("") }, */
   { MODKEY,                       XK_d,         spawn,          {.v = dmenucmd } }, // dmenu
   { MODKEY|ShiftMask,             XK_d,         spawn,           SHCMD("passmenu") }, // passmenu
   { MODKEY,                       XK_f,         togglefullscr,  {0} }, // toggle full screen
   { MODKEY|ShiftMask,             XK_f,         spawn,           SHCMD("$GUIFILEMANAGER") }, // start gui file manager
-  /* { MODKEY,                       XK_g,         spawn,           SHCMD(""), */
-  { MODKEY|ShiftMask,             XK_g,         spawn,           SHCMD("qjoypad --notray") },
+  /* { MODKEY,                       XK_g,         spawn,           SHCMD("") }, */
+  /* { MODKEY|ShiftMask,             XK_g,         spawn,           SHCMD("") }, */
   { MODKEY,                       XK_h,         setmfact,       {.f = -0.01} }, // change window size
   /* { MODKEY|ShiftMask,             XK_h,         spawn,           SHCMD("") }, */
   { MODKEY,                       XK_j,         focusstack,     {.i = +1 } }, // change window focus
@@ -146,30 +146,29 @@ static Key keys[] = {
   { MODKEY,                       XK_k,         focusstack,     {.i = -1 } }, // change window focus
   { MODKEY|ShiftMask,             XK_k,         pushup,         {.i = -1 } }, // move window up inside client list
   { MODKEY,                       XK_l,         setmfact,       {.f = +0.01} }, // change window size
-  /* { MODKEY|ShiftMask,             XK_l,         spawn,           SHCMD(""), */
-  /* { MODKEY,                       XK_semicolon, spawn,           SHCMD(""), */
-  /* { MODKEY|ShiftMask,             XK_semicolon, spawn,           SHCMD(""), */
-  /* { MODKEY,                       XK_apostrophe,spawn,           SHCMD(""), */
-  /* { MODKEY|ShiftMask,             XK_apostrophe,spawn,           SHCMD(""), */
+  /* { MODKEY|ShiftMask,             XK_l,         spawn,           SHCMD("") }, */
+  /* { MODKEY,                       XK_semicolon, spawn,           SHCMD("") }, */
+  /* { MODKEY|ShiftMask,             XK_semicolon, spawn,           SHCMD("") }, */
+  /* { MODKEY,                       XK_apostrophe,spawn,           SHCMD("") }, */
+  /* { MODKEY|ShiftMask,             XK_apostrophe,spawn,           SHCMD("") }, */
   { MODKEY,                       XK_Return,    spawn,          {.v = termcmd } }, // terminal
-  /* { MODKEY|ShiftMask,             XK_Return,    togglescratch,  {.ui = 0} }, // scratchpad */
+  /* { MODKEY|ShiftMask,             XK_Return,    spawn,           SHCMD("") }, */
 
-  /* { MODKEY|ShiftMask,             XK_z,         spawn,           SHCMD("$SCREENLOCK") }, // lock session */
+  /* { MODKEY|ShiftMask,             XK_z,         spawn,           SHCMD("") }, */
   /* { MODKEY|ShiftMask,             XK_z,         spawn,           SHCMD("") }, */
   { MODKEY|ShiftMask,             XK_x,         spawn,           SHCMD("shutdown_script") },
-  /* { MODKEY|ShiftMask,             XK_x,         spawn,           SHCMD("prompt 'Do you want to shutdown?' 'shutdown now'") }, // shutdowns after confirmation */
-  /* { MODKEY|ShiftMask,             XK_z,         spawn,           SHCMD(""), */
-  /* { MODKEY,                       XK_c,         spawn,           SHCMD(""), */
-  /* { MODKEY|ShiftMask,             XK_c,         spawn,           SHCMD(""), */
-  /* { MODKEY,                       XK_v,         spawn,           SHCMD(""), */
-  /* { MODKEY|ShiftMask,             XK_v,         spawn,           SHCMD(""), */
+  /* { MODKEY|ShiftMask,             XK_x,         spawn,           SHCMD("") }, */
+  /* { MODKEY,                       XK_c,         spawn,           SHCMD("") }, */
+  /* { MODKEY|ShiftMask,             XK_c,         spawn,           SHCMD("") }, */
+  /* { MODKEY,                       XK_v,         spawn,           SHCMD("") }, */
+  /* { MODKEY|ShiftMask,             XK_v,         spawn,           SHCMD("") }, */
   { MODKEY,                       XK_b,         spawn,           SHCMD("$BROWSER") }, // start browser
   { MODKEY|Mod1Mask,              XK_b,         togglebar,      {0} }, // toggle bar visibility
   { MODKEY|Mod1Mask|ShiftMask,    XK_b,         hideborder,     {0} }, // toggle border visibility
-  /* { MODKEY,                       XK_n,         spawn,           SHCMD(""), */
+  /* { MODKEY,                       XK_n,         spawn,           SHCMD("") }, */
   { MODKEY|ShiftMask,             XK_n,         spawn,           SHCMD("restart-dunst") },
   { MODKEY,                       XK_m,         spawn,           SHCMD(TERMINAL " -e ncmpcpp") }, // run ncmpcpp
-  /* { MODKEY|ShiftMask,             XK_m,         spawn,           SHCMD(""), */
+  /* { MODKEY|ShiftMask,             XK_m,         spawn,           SHCMD("") }, */
   { MODKEY,                       XK_comma,     spawn,           SHCMD("mpc prev") }, // prev song
   { MODKEY|ShiftMask,             XK_comma,     spawn,           SHCMD("mpc seek -10") }, // backward 10s
   { MODKEY,                       XK_period,    spawn,           SHCMD("mpc next") }, // next song
@@ -192,13 +191,13 @@ static Key keys[] = {
   /* { MODKEY,                       XK_F4,        spawn,           SHCMD("") }, */
   /* { MODKEY,                       XK_F5,        spawn,           SHCMD("") }, */
   /* { MODKEY,                       XK_F6,        spawn,           SHCMD("") }, */
-  { MODKEY,                       XK_F7,        spawn,           SHCMD("idea") },
+  /* { MODKEY,                       XK_F7,        spawn,           SHCMD("idea") }, */
   /* { MODKEY,                       XK_F8,        spawn,           SHCMD("") }, */
   /* { MODKEY,                       XK_F9,        spawn,           SHCMD("") }, */
-  /* { MODKEY,                       XK_F9,        spawn,           SHCMD(TERMINAL " -e bashmount") }, */
+  /* { MODKEY,                       XK_F9,        spawn,           SHCMD("") }, */
   /* { MODKEY,                       XK_F10,       spawn,           SHCMD("") }, */
-  /* { MODKEY,                       XK_F11,       spawn,           SHCMD(  "mount-dmenu") }, //   mount usb */
-  /* { MODKEY,                       XK_F12,       spawn,           SHCMD("unmount-dmenu") }, // unmount usb */
+  /* { MODKEY,                       XK_F11,       spawn,           SHCMD("") }, //   mount usb */
+  /* { MODKEY,                       XK_F12,       spawn,           SHCMD("") }, // unmount usb */
 
   { 0, XF86XK_AudioMute,                        spawn,           SHCMD("pamixer -t; kill -35 $(pidof slbar)") },                 // volume mute
   { 0, XF86XK_AudioLowerVolume,	                spawn,           SHCMD("pamixer --allow-boost -d 2; kill -35 $(pidof slbar)") }, // volume down
