@@ -1,0 +1,51 @@
+From e136c9f6c26498a6df59f3a8c198f4120624ddf7 Mon Sep 17 00:00:00 2001
+From: Rentib <sbitner420@tutanota.com>
+Date: Wed, 3 Aug 2022 16:18:56 +0200
+Subject: [PATCH] Toggle current window's fullscreen with [MODKEY]+[Shift]+[f].
+
+---
+ config.def.h | 1 +
+ dwm.c        | 8 ++++++++
+ 2 files changed, 9 insertions(+)
+
+diff --git a/config.def.h b/config.def.h
+index a2ac963..0ba6eca 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -79,6 +79,7 @@ static Key keys[] = {
+ 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
+ 	{ MODKEY,                       XK_space,  setlayout,      {0} },
+ 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
++	{ MODKEY|ShiftMask,             XK_f,      togglefullscr,  {0} },
+ 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
+ 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
+ 	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
+diff --git a/dwm.c b/dwm.c
+index 61713b7..0a36c09 100644
+--- a/dwm.c
++++ b/dwm.c
+@@ -212,6 +212,7 @@ static void tagmon(const Arg *arg);
+ static void tile(Monitor *m);
+ static void togglebar(const Arg *arg);
+ static void togglefloating(const Arg *arg);
++static void togglefullscr(const Arg *arg);
+ static void toggletag(const Arg *arg);
+ static void toggleview(const Arg *arg);
+ static void unfocus(Client *c, int setfocus);
+@@ -1726,6 +1727,13 @@ togglefloating(const Arg *arg)
+ 	arrange(selmon);
+ }
+ 
++void
++togglefullscr(const Arg *arg)
++{
++  if (selmon->sel)
++    setfullscreen(selmon->sel, !selmon->sel->isfullscreen);
++}
++
+ void
+ toggletag(const Arg *arg)
+ {
+-- 
+2.37.1
+
