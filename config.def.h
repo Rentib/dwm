@@ -30,12 +30,6 @@ static const char *colors[][3] = {
 };
 #endif
 
-static const float alphas[][3] = {
-  /*               fg   bg    border */
-  [SchemeNorm] = { 1.0, 0.85, 1.0 },
-  [SchemeSel]  = { 1.0, 0.85, 1.0 },
-};
-
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 
