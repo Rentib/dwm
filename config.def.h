@@ -7,7 +7,7 @@ static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "monospace:size=10", "symbola:pixelsize=14:antialias=true:autohint=true" };
+static const char *fonts[]          = { "monospace:size=10", "symbola:pixelsize=14:antialias=true:autohint=true", "hack:pixelsize=14:antialias=true:autohint=true" };
 static const char dmenufont[]       = "monospace:size=10";
 
 #ifdef SWEET_DARK
@@ -19,8 +19,8 @@ static const char *colors[][3] = {
 #elif GRUVBOX
 static const char *colors[][3] = {
   /*               fg          bg         border */
-  [SchemeNorm] = { "#9c8d74", "#282828", "#8f8072" },
-  [SchemeSel]  = { "#d4be98", "#282828", "#e76861" },
+  [SchemeNorm] = { "#9c8d74", "#1d2021", "#8f8072" },
+  [SchemeSel]  = { "#d4be98", "#1d2021", "#e76861" },
 };
 #else
 static const char *colors[][3] = {
