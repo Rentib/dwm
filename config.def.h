@@ -7,7 +7,7 @@ static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "monospace:size=10", "symbola:pixelsize=14:antialias=true:autohint=true", "hack:pixelsize=14:antialias=true:autohint=true" };
+static const char *fonts[]          = { "hack:size=10:pixelsize=12:antialias=true:autohint=true", "symbola:pixelsize=14:antialias=true:autohint=true" };
 static const char dmenufont[]       = "monospace:size=10";
 
 #ifdef SWEET_DARK
