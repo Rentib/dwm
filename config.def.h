@@ -165,7 +165,7 @@ static Key keys[] = {
   /* { MODKEY|ShiftMask,             XK_v,         spawn,           SHCMD("") }, */
   { MODKEY,                       XK_b,         spawn,           SHCMD("$BROWSER") }, // start browser
   { MODKEY|Mod1Mask,              XK_b,         togglebar,      {0} }, // toggle bar visibility
-  /* { MODKEY|Mod1Mask|ShiftMask,    XK_b,         hideborder,     {0} }, // toggle border visibility */
+  { MODKEY|Mod1Mask|ShiftMask,    XK_b,         toggleborder,   {0} }, // toggle border visibility
   /* { MODKEY,                       XK_n,         spawn,           SHCMD("") }, */
   { MODKEY|ShiftMask,             XK_n,         spawn,           SHCMD("restart-dunst") },
   { MODKEY,                       XK_m,         spawn,           SHCMD(TERMINAL " -e ncmpcpp") }, // run ncmpcpp
