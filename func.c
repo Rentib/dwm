@@ -31,6 +31,8 @@ togglefullscr(const Arg *arg)
 void
 toggleborder(const Arg *arg)
 {
-  selmon->sel->bw = (selmon->sel->bw == borderpx ? 0 : borderpx);
-  arrange(selmon);
+  if (selmon && selmon->sel) {
+    selmon->sel->bw = (selmon->sel->bw == borderpx ? 0 : borderpx);
+    arrange(selmon);
+  }
 }
