@@ -60,7 +60,7 @@ static const Layout layouts[] = {
 	{ "[M]",      monocle },
 };
 
-#include "patches/shiftview.c"
+#include "func.c"
 
 #include <X11/XF86keysym.h>
 
