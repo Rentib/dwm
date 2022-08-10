@@ -1,8 +1,56 @@
-/** Function to shift the current view to the left/right
- *
- * @param: "arg->i" stores the number of tags to shift right (positive value)
- *          or left (negative value)
- */
+void movestack(const Arg *arg);
+void shiftview(const Arg *arg);
+void toggleborder(const Arg *arg);
+void togglefullscr(const Arg *arg);
+
+/** Function to push selected client up/down the stack */
+void
+movestack(const Arg *arg) {
+	Client *c = NULL, *p = NULL, *pc = NULL, *i;
+
+	if(arg->i > 0) {
+    c = nexttiled(selmon->sel->next);
+		if(!c)
+      c = nexttiled(selmon->clients);
+	}
+	else {
+		for(i = selmon->clients; i != selmon->sel; i = i->next)
+			if(ISVISIBLE(i) && !i->isfloating)
+				c = i;
+		if(!c)
+			for (; i; i = i->next)
+				if (!i->isfloating && ISVISIBLE(i))
+					c = i;
+	}
+	/* find the client before selmon->sel and c */
+	for(i = selmon->clients; i && (!p || !pc); i = i->next) {
+		if(i->next == selmon->sel)
+			p = i;
+		if(i->next == c)
+			pc = i;
+	}
+
+	/* swap c and selmon->sel selmon->clients in the selmon->clients list */
+	if(c && c != selmon->sel) {
+		Client *temp = selmon->sel->next==c?selmon->sel:selmon->sel->next;
+		selmon->sel->next = c->next==selmon->sel?c:c->next;
+		c->next = temp;
+
+		if(p && p != c)
+			p->next = c;
+		if(pc && pc != selmon->sel)
+			pc->next = selmon->sel;
+
+		if(selmon->sel == selmon->clients)
+			selmon->clients = c;
+		else if(c == selmon->clients)
+			selmon->clients = selmon->sel;
+
+		arrange(selmon);
+	}
+}
+
+/** Function to shift the current view to the left/right */
 void
 shiftview(const Arg *arg)
 {
