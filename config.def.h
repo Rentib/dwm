@@ -44,6 +44,10 @@ static const Rule rules[] = {
   { "discord",         NULL,     NULL,  1 << 8,    0,          -1 },
   { "TelegramDesktop", NULL,     NULL,  1 << 8,    0,          -1 },
   { "Steam",           NULL,     NULL,  1 << 7,    0,          -1 },
+  { "Bottles",         NULL,     NULL,  1 << 7,    0,          -1 },
+  { "Lutris",          NULL,     NULL,  1 << 7,    0,          -1 },
+  { "heroic",          NULL,     NULL,  1 << 7,    0,          -1 },
+  { "Minigalaxy",      NULL,     NULL,  1 << 7,    0,          -1 },
   { "Minecraft 1.18",  NULL,     NULL,  1 << 7,    0,          -1 },
 };
 
@@ -110,9 +114,9 @@ static Key keys[] = {
   { MODKEY,                       XK_e,         setlayout,      {.v = &layouts[0]} }, // tiling
   { MODKEY|ShiftMask,             XK_e,         quit,           {0} }, // exit DWM
   { MODKEY,                       XK_r,         setlayout,      {.v = &layouts[1]} }, // floating
-  /* { MODKEY|ShiftMask,             XK_r,         spawn,           SHCMD("") }, */
-  { MODKEY,                       XK_t,         setlayout,      {.v = &layouts[2]} }, // monocle
-  /* { MODKEY|ShiftMask,             XK_t,         spawn,           SHCMD("") }, */
+  { MODKEY|ShiftMask,             XK_r,         setlayout,      {.v = &layouts[2]} }, // monocle
+  { MODKEY,                       XK_t,         spawn,           SHCMD("toggle-touchpad") },
+  { MODKEY|ShiftMask,             XK_t,         spawn,           SHCMD("toggle-xbanish") },
   /* { MODKEY,                       XK_y,         spawn,           SHCMD("") }, */
   /* { MODKEY|ShiftMask,             XK_y,         spawn,           SHCMD("") }, */
   /* { MODKEY,                       XK_u,         spawn,           SHCMD("") }, */
