@@ -40,6 +40,7 @@ static const Rule rules[] = {
 	 */
 	/* class             instance  title  tags mask  isfloating  monitor */
   { "Brave-browser",   NULL,     NULL,  1 << 1,    0,          -1 },
+  { "Chromium",        NULL,     NULL,  1 << 1,    0,          -1 },
   { "librewolf",       NULL,     NULL,  1 << 1,    0,          -1 },
   { "discord",         NULL,     NULL,  1 << 8,    0,          -1 },
   { "TelegramDesktop", NULL,     NULL,  1 << 8,    0,          -1 },
@@ -49,6 +50,7 @@ static const Rule rules[] = {
   { "heroic",          NULL,     NULL,  1 << 7,    0,          -1 },
   { "Minigalaxy",      NULL,     NULL,  1 << 7,    0,          -1 },
   { "Minecraft 1.18",  NULL,     NULL,  1 << 7,    0,          -1 },
+  { "heroes3 hd.exe",  NULL,     NULL,  1 << 7,    1,          -1 },
 };
 
 /* layout(s) */
