@@ -16,6 +16,25 @@ static const char *colors[][3] = {
   [SchemeSel]  = { "#d4be98", "#1d2021", "#e76861" },
 };
 
+typedef enum {
+  GruvboxMaterialDark,
+  GruvboxMaterialLight,
+  ColorSchemeLast,
+} ColorScheme;
+
+static ColorScheme defaultcolorscheme = GruvboxMaterialDark;
+
+static const char *colorscheme[ColorSchemeLast][2][3] = {
+  [GruvboxMaterialDark] = {
+    [SchemeNorm] = { "#9c8d74", "#1d2021", "#8f8072" },
+    [SchemeSel]  = { "#d4be98", "#1d2021", "#e76861" },
+  },
+  [GruvboxMaterialLight] = {
+    [SchemeNorm] = { "#654735", "#fbf1c7", "#928374" },
+    [SchemeSel]  = { "#654735", "#fbf1c7", "#c14a4a" },
+  }
+};
+
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 
@@ -68,7 +87,13 @@ static const Layout layouts[] = {
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* commands */
-static const char *dmenucmd[] = { "dmenu_run", NULL };
+static const char *dmenucmd[] = {
+  "dmenu_run",
+  "-fn", "monospace:size=10",
+  "-nb", "#d4be98", "-nf", "#282828",
+  "-sb", "#fefefe", "-sf", "#ba5954",
+  NULL
+};
 static const char *termcmd[]  = { TERMINAL, NULL };
 
 static const Key keys[] = {
@@ -126,7 +151,7 @@ static const Key keys[] = {
   /* { MODKEY,                       XK_s,         spawn,           SHCMD("") }, */
   /* { MODKEY|ShiftMask,             XK_s,         spawn,           SHCMD("") }, */
   { MODKEY,                       XK_d,         spawn,          {.v = dmenucmd } }, // dmenu
-  { MODKEY|ShiftMask,             XK_d,         spawn,           SHCMD("passmenu") }, // passmenu
+  { MODKEY|ShiftMask,             XK_d,         spawn,           SHCMD("passmenu -i") }, // passmenu
   { MODKEY,                       XK_f,         togglefullscr,  {0} }, // toggle full screen
   { MODKEY|ShiftMask,             XK_f,         spawn,           SHCMD("$GUIFILEMANAGER") }, // start gui file manager
   /* { MODKEY,                       XK_g,         spawn,           SHCMD("") }, */
@@ -189,7 +214,7 @@ static const Key keys[] = {
   /* { MODKEY,                       XK_F9,        spawn,           SHCMD("") }, */
   /* { MODKEY,                       XK_F10,       spawn,           SHCMD("") }, */
   /* { MODKEY,                       XK_F11,       spawn,           SHCMD("") }, //   mount usb */
-  /* { MODKEY,                       XK_F12,       spawn,           SHCMD("") }, // unmount usb */
+  { MODKEY,                       XK_F12,       changetheme,    {0} }, // unmount usb
 
   { 0, XF86XK_AudioMute,                        spawn,           SHCMD("pamixer -t; kill -35 $(pidof slbar)") },                 // volume mute
   { 0, XF86XK_AudioLowerVolume,	                spawn,           SHCMD("pamixer --allow-boost -d 2; kill -35 $(pidof slbar)") }, // volume down

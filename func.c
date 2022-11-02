@@ -1,7 +1,28 @@
+void changetheme(const Arg *arg);
 void movestack(const Arg *arg);
 void shiftview(const Arg *arg);
 void toggleborder(const Arg *arg);
 void togglefullscr(const Arg *arg);
+
+void
+changetheme(const Arg *arg)
+{
+  unsigned int i, j;
+  defaultcolorscheme = (defaultcolorscheme + 1) % ColorSchemeLast;
+
+  for (i = 0; i < LENGTH(colors); i++)
+    for (j = 0; j < 3; j++)
+      colors[i][j] = colorscheme[defaultcolorscheme][i][j];
+
+  for (i = 0; i < LENGTH(colors); i++)
+    free(scheme[i]);
+
+	scheme[LENGTH(colors)] = drw_scm_create(drw, colors[0], 3);
+	for (i = 0; i < LENGTH(colors); i++)
+		scheme[i] = drw_scm_create(drw, colors[i], 3);
+
+  drawbars();
+}
 
 /** Function to push selected client up/down the stack */
 void
