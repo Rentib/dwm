@@ -8,7 +8,6 @@ static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[]          = { "hack:size=10:pixelsize=12:antialias=true:autohint=true", "symbola:pixelsize=14:antialias=true:autohint=true" };
-static const char dmenufont[]       = "monospace:size=10";
 
 static const char *colors[][3] = {
   /*               fg          bg         border */
@@ -90,8 +89,8 @@ static const Layout layouts[] = {
 static const char *dmenucmd[] = {
   "dmenu_run",
   "-fn", "monospace:size=10",
-  "-nb", "#d4be98", "-nf", "#282828",
-  "-sb", "#fefefe", "-sf", "#ba5954",
+  "-nb", "#282828", "-nf", "#d4be98",
+  "-sb", "#ba5954", "-sf", "#fefefe",
   NULL
 };
 static const char *termcmd[]  = { TERMINAL, NULL };
@@ -127,8 +126,8 @@ static const Key keys[] = {
   { MODKEY|ShiftMask,             XK_e,         quit,           {0} }, // exit DWM
   { MODKEY,                       XK_r,         setlayout,      {.v = &layouts[1]} }, // floating
   { MODKEY|ShiftMask,             XK_r,         setlayout,      {.v = &layouts[2]} }, // monocle
-  { MODKEY,                       XK_t,         spawn,           SHCMD("toggle-touchpad") },
-  { MODKEY|ShiftMask,             XK_t,         spawn,           SHCMD("toggle-xbanish") },
+  { MODKEY,                       XK_t,         spawn,          {.v = (const char*[]){ "toggle-touchpad", NULL } } },
+  { MODKEY|ShiftMask,             XK_t,         spawn,          {.v = (const char*[]){ "toggle-xbanish", NULL } } },
   /* { MODKEY,                       XK_y,         spawn,           SHCMD("") }, */
   /* { MODKEY|ShiftMask,             XK_y,         spawn,           SHCMD("") }, */
   /* { MODKEY,                       XK_u,         spawn,           SHCMD("") }, */
@@ -137,8 +136,8 @@ static const Key keys[] = {
   /* { modkey|ShiftMask,             XK_l,         spawn,           SHCMD("") }, */
   { MODKEY,                       XK_o,         incnmaster,     {.i = +1 } }, // add 1 client to master area
   { MODKEY|ShiftMask,             XK_o,         incnmaster,     {.i = -1 } }, // subtract 1 client from master area
-  { MODKEY,                       XK_p,         spawn,           SHCMD("mpc toggle") }, // pause / unpause mpd
-  { MODKEY|ShiftMask,             XK_p,         spawn,           SHCMD("mpc stop") }, // stop mpd
+  { MODKEY,                       XK_p,         spawn,          {.v = (const char*[]){ "mpc", "toggle", NULL } } }, // pause / unpause mpd
+  { MODKEY|ShiftMask,             XK_p,         spawn,          {.v = (const char*[]){ "mpc", "stop", NULL } } },   // stop mpd
   /* { MODKEY,                       XK_bracketleft,         spawn,           SHCMD("") }, */
   /* { MODKEY|ShiftMask,             XK_bracketleft,         spawn,           SHCMD("") }, */
   /* { MODKEY,                       XK_bracketright,        spawn,           SHCMD("") }, */
@@ -151,7 +150,7 @@ static const Key keys[] = {
   /* { MODKEY,                       XK_s,         spawn,           SHCMD("") }, */
   /* { MODKEY|ShiftMask,             XK_s,         spawn,           SHCMD("") }, */
   { MODKEY,                       XK_d,         spawn,          {.v = dmenucmd } }, // dmenu
-  { MODKEY|ShiftMask,             XK_d,         spawn,           SHCMD("passmenu -i") }, // passmenu
+  { MODKEY|ShiftMask,             XK_d,         spawn,          {.v = (const char*[]){ "passmenu", "-i", NULL } } }, // passmenu
   { MODKEY,                       XK_f,         togglefullscr,  {0} }, // toggle full screen
   { MODKEY|ShiftMask,             XK_f,         spawn,           SHCMD("$GUIFILEMANAGER") }, // start gui file manager
   /* { MODKEY,                       XK_g,         spawn,           SHCMD("") }, */
@@ -173,7 +172,7 @@ static const Key keys[] = {
 
   /* { MODKEY|ShiftMask,             XK_z,         spawn,           SHCMD("") }, */
   /* { MODKEY|ShiftMask,             XK_z,         spawn,           SHCMD("") }, */
-  { MODKEY|ShiftMask,             XK_x,         spawn,           SHCMD("shutdown_script") },
+  { MODKEY|ShiftMask,             XK_x,         spawn,          {.v = (const char*[]){ "shutdown_script", NULL } } },
   /* { MODKEY|ShiftMask,             XK_x,         spawn,           SHCMD("") }, */
   /* { MODKEY,                       XK_c,         spawn,           SHCMD("") }, */
   /* { MODKEY|ShiftMask,             XK_c,         spawn,           SHCMD("") }, */
@@ -183,18 +182,18 @@ static const Key keys[] = {
   { MODKEY|Mod1Mask,              XK_b,         togglebar,      {0} }, // toggle bar visibility
   { MODKEY|Mod1Mask|ShiftMask,    XK_b,         toggleborder,   {0} }, // toggle border visibility
   /* { MODKEY,                       XK_n,         spawn,           SHCMD("") }, */
-  { MODKEY|ShiftMask,             XK_n,         spawn,           SHCMD("restart-dunst") },
-  { MODKEY,                       XK_m,         spawn,           SHCMD(TERMINAL " -e ncmpcpp") }, // run ncmpcpp
+  { MODKEY|ShiftMask,             XK_n,         spawn,          {.v = (const char*[]){ "restart-dunst", NULL } } },
+  { MODKEY,                       XK_m,         spawn,          {.v = (const char*[]){ TERMINAL, "-e", "ncmpcpp", NULL } } }, // run ncmpcpp
   /* { MODKEY|ShiftMask,             XK_m,         spawn,           SHCMD("") }, */
-  { MODKEY,                       XK_comma,     spawn,           SHCMD("mpc prev") }, // prev song
-  { MODKEY|ShiftMask,             XK_comma,     spawn,           SHCMD("mpc seek -10") }, // backward 10s
-  { MODKEY,                       XK_period,    spawn,           SHCMD("mpc next") }, // next song
-  { MODKEY|ShiftMask,             XK_period,    spawn,           SHCMD("mpc seek +10") }, // forward 10s
+  { MODKEY,                       XK_comma,     spawn,          {.v = (const char*[]){ "mpc", "prev", NULL } } }, // prev song
+  { MODKEY|ShiftMask,             XK_comma,     spawn,          {.v = (const char*[]){ "mpc", "seek", "-10", NULL } } }, // backward 10s
+  { MODKEY,                       XK_period,    spawn,          {.v = (const char*[]){ "mpc", "next", NULL } } }, // next song
+  { MODKEY|ShiftMask,             XK_period,    spawn,          {.v = (const char*[]){ "mpc", "seek", "+10", NULL } } }, // forward 10s
 
   { MODKEY,                       XK_space,     zoom,           {0} }, // sets master window
   { MODKEY|ShiftMask,             XK_space,     togglefloating, {0} }, // toggles floating for selected window
-  { 0,                            XK_Print,     spawn,           SHCMD("screenshot 1") }, // screenshot
-  { ShiftMask,                    XK_Print,     spawn,           SHCMD("screenshot 2") }, // screenshot into clipboard
+  { 0,                            XK_Print,     spawn,          {.v = (const char *[]){ "screenshot", "1", NULL} } }, // screenshot
+  { ShiftMask,                    XK_Print,     spawn,          {.v = (const char *[]){ "screenshot", "2", NULL} } }, // screenshot into clipboard
   { MODKEY,                       XK_Page_Up,   shiftview,      {.i = -1 } }, // tab id - 1
   { MODKEY,                       XK_Page_Down, shiftview,      {.i = +1 } }, // tab id + 1
  	{ MODKEY,			                  XK_Left,	    focusmon,	      {.i = -1 } },
@@ -220,8 +219,8 @@ static const Key keys[] = {
   { 0, XF86XK_AudioLowerVolume,	                spawn,           SHCMD("pamixer --allow-boost -d 2; kill -35 $(pidof slbar)") }, // volume down
   { 0, XF86XK_AudioRaiseVolume,                 spawn,           SHCMD("pamixer --allow-boost -i 2; kill -35 $(pidof slbar)") }, // volume up
   { 0, XF86XK_AudioMicMute,                     spawn,           SHCMD("pactl set-source-mute @DEFAULT_SOURCE@ toggle") }, // mic mute
-  { 0, XF86XK_MonBrightnessDown,                spawn,           SHCMD("brightness -5") },  // brightness down
-  { 0, XF86XK_MonBrightnessUp,                  spawn,           SHCMD("brightness +5") },  // grightness up
+  { 0, XF86XK_MonBrightnessDown,                spawn,           {.v = (const char *[]){ "brightness", "-5", NULL } } },  // brightness down
+  { 0, XF86XK_MonBrightnessUp,                  spawn,           {.v = (const char *[]){ "brightness", "+5", NULL } } },  // grightness up
 };
 
 /* button definitions */
