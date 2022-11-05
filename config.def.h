@@ -34,6 +34,11 @@ static const char *colorscheme[ColorSchemeLast][2][3] = {
   }
 };
 
+static const char *dmenucolors[ColorSchemeLast][4] = {
+  [GruvboxMaterialDark] = { "#d4be98", "#282828", "#fefefe", "#ba5954" },
+  [GruvboxMaterialLight] = { "#654735", "#fbf1c7", "#c14a4a", "#fbf1c7" },
+};
+
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 
@@ -70,10 +75,6 @@ static const Layout layouts[] = {
 	{ "[M]",      monocle },
 };
 
-#include "func.c"
-
-#include <X11/XF86keysym.h>
-
 /* key definitions */
 #define MODKEY Mod4Mask
 #define TAGKEYS(KEY,TAG) \
@@ -89,11 +90,15 @@ static const Layout layouts[] = {
 static const char *dmenucmd[] = {
   "dmenu_run",
   "-fn", "monospace:size=10",
-  "-nb", "#282828", "-nf", "#d4be98",
-  "-sb", "#ba5954", "-sf", "#fefefe",
+  "-nf", "#d4be98", "-nb", "#282828",
+  "-sf", "#fefefe", "-sb", "#ba5954",
   NULL
 };
+
 static const char *termcmd[]  = { TERMINAL, NULL };
+
+#include "func.c"
+#include <X11/XF86keysym.h>
 
 static const Key keys[] = {
   /* modifier                     key           function           argument */

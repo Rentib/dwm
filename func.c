@@ -22,6 +22,9 @@ changetheme(const Arg *arg)
 		scheme[i] = drw_scm_create(drw, colors[i], 3);
 
   drawbars();
+
+  for (i = 0; i < 4; i++)
+    dmenucmd[2 * i + 4] = dmenucolors[defaultcolorscheme][i];
 }
 
 /** Function to push selected client up/down the stack */
