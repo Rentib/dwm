@@ -35,8 +35,8 @@ static const char *colorscheme[ColorSchemeLast][2][3] = {
 };
 
 static const char *dmenucolors[ColorSchemeLast][4] = {
-  [GruvboxMaterialDark] = { "#d4be98", "#282828", "#fefefe", "#ba5954" },
-  [GruvboxMaterialLight] = { "#654735", "#fbf1c7", "#c14a4a", "#fbf1c7" },
+  [GruvboxMaterialDark]  = { "#d4be98", "#282828", "#fefefe", "#ba5954" },
+  [GruvboxMaterialLight] = { "#654735", "#fbf1c7", "#fefefe", "#c14a4a" },
 };
 
 /* tagging */
@@ -59,6 +59,7 @@ static const Rule rules[] = {
   { "heroic",          NULL,     NULL,  1 << 7,    0,          -1 },
   { "Minigalaxy",      NULL,     NULL,  1 << 7,    0,          -1 },
   { "Minecraft 1.18",  NULL,     NULL,  1 << 7,    0,          -1 },
+  { "Minecraft 1.19",  NULL,     NULL,  1 << 7,    0,          -1 },
   { "heroes3 hd.exe",  NULL,     NULL,  1 << 7,    1,          -1 },
 };
 
@@ -212,7 +213,7 @@ static const Key keys[] = {
   /* { MODKEY,                       XK_F4,        spawn,           SHCMD("") }, */
   /* { MODKEY,                       XK_F5,        spawn,           SHCMD("") }, */
   /* { MODKEY,                       XK_F6,        spawn,           SHCMD("") }, */
-  /* { MODKEY,                       XK_F7,        spawn,           SHCMD("idea") }, */
+  /* { MODKEY,                       XK_F7,        spawn,           {.v = (const char *[]){ "idea", NULL } } }, */
   /* { MODKEY,                       XK_F8,        spawn,           SHCMD("") }, */
   /* { MODKEY,                       XK_F9,        spawn,           SHCMD("") }, */
   /* { MODKEY,                       XK_F9,        spawn,           SHCMD("") }, */
