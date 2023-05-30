@@ -11,8 +11,8 @@ static const char *fonts[]          = { "hack:size=10:pixelsize=12:antialias=tru
 
 static const char *colors[][3] = {
   /*               fg          bg         border */
-  [SchemeNorm] = { "#9c8d74", "#1d2021", "#8f8072" },
-  [SchemeSel]  = { "#d4be98", "#1d2021", "#e76861" },
+  [SchemeNorm] = { "#654735", "#fbf1c7", "#928374" },
+  [SchemeSel]  = { "#654735", "#fbf1c7", "#c14a4a" },
 };
 
 typedef enum {
@@ -21,7 +21,7 @@ typedef enum {
   ColorSchemeLast,
 } ColorScheme;
 
-static ColorScheme defaultcolorscheme = GruvboxMaterialDark;
+static ColorScheme defaultcolorscheme = GruvboxMaterialLight;
 
 static const char *colorscheme[ColorSchemeLast][2][3] = {
   [GruvboxMaterialDark] = {
@@ -58,8 +58,7 @@ static const Rule rules[] = {
   { "Lutris",          NULL,     NULL,  1 << 7,    0,          -1 },
   { "heroic",          NULL,     NULL,  1 << 7,    0,          -1 },
   { "Minigalaxy",      NULL,     NULL,  1 << 7,    0,          -1 },
-  { "Minecraft 1.18",  NULL,     NULL,  1 << 7,    0,          -1 },
-  { "Minecraft 1.19",  NULL,     NULL,  1 << 7,    0,          -1 },
+  { "Minecraft* 1.19.4",  NULL,     NULL,  1 << 7,    0,          -1 },
   { "heroes3 hd.exe",  NULL,     NULL,  1 << 7,    1,          -1 },
 };
 
@@ -91,8 +90,12 @@ static const Layout layouts[] = {
 static const char *dmenucmd[] = {
   "dmenu_run",
   "-fn", "monospace:size=10",
-  "-nf", "#d4be98", "-nb", "#282828",
-  "-sf", "#fefefe", "-sb", "#ba5954",
+  /* GruvboxMaterialDark */
+  /* "-nf", "#d4be98", "-nb", "#282828", */
+  /* "-sf", "#fefefe", "-sb", "#ba5954", */
+  /* GruvboxMaterialLight */
+  "-nf", "#654735", "-nb", "#fbf1c7",
+  "-sf", "#fefefe", "-sb", "#c14a4a",
   NULL
 };
 
