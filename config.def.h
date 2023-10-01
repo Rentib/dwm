@@ -10,7 +10,6 @@ static const int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[]          = {
 	"hack:size=10:pixelsize=12:antialias=true:autohint=true",
 	"hacknerdfont:pixelsize=14:antialias=true:autohint=true",
-	"symbola:pixelsize=14:antialias=true:autohint=true",
 };
 
 static const char *colors[][3] = {
