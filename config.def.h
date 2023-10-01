@@ -7,7 +7,11 @@ static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "hack:size=10:pixelsize=12:antialias=true:autohint=true", "symbola:pixelsize=14:antialias=true:autohint=true" };
+static const char *fonts[]          = {
+	"hack:size=10:pixelsize=12:antialias=true:autohint=true",
+	"hacknerdfont:pixelsize=14:antialias=true:autohint=true",
+	"symbola:pixelsize=14:antialias=true:autohint=true",
+};
 
 static const char *colors[][3] = {
   /*               fg          bg         border */
@@ -30,7 +34,7 @@ static const char *colorscheme[ColorSchemeLast][2][3] = {
   },
   [GruvboxMaterialLight] = {
     [SchemeNorm] = { "#654735", "#fbf1c7", "#928374" },
-    [SchemeSel]  = { "#654735", "#fbf1c7", "#c14a4a" },
+    [SchemeSel]  = { "#282828", "#fbf1c7", "#c14a4a" },
   }
 };
 
@@ -222,14 +226,18 @@ static const Key keys[] = {
   /* { MODKEY,                       XK_F9,        spawn,           SHCMD("") }, */
   /* { MODKEY,                       XK_F10,       spawn,           SHCMD("") }, */
   /* { MODKEY,                       XK_F11,       spawn,           SHCMD("") }, //   mount usb */
-  { MODKEY,                       XK_F12,       changetheme,    {0} }, // unmount usb
+  { MODKEY,                       XK_F12,       changetheme,    {0} }, // change dwm theme
+  { 0,                            XK_F12,       spawn,          {.v = (const char *[]){ "toggle_theme", NULL }} }, // change global theme
 
-  { 0, XF86XK_AudioMute,                        spawn,           SHCMD("pamixer -t; kill -35 $(pidof slbar)") },                 // volume mute
-  { 0, XF86XK_AudioLowerVolume,	                spawn,           SHCMD("pamixer --allow-boost -d 2; kill -35 $(pidof slbar)") }, // volume down
-  { 0, XF86XK_AudioRaiseVolume,                 spawn,           SHCMD("pamixer --allow-boost -i 2; kill -35 $(pidof slbar)") }, // volume up
-  { 0, XF86XK_AudioMicMute,                     spawn,           SHCMD("pactl set-source-mute @DEFAULT_SOURCE@ toggle") }, // mic mute
-  { 0, XF86XK_MonBrightnessDown,                spawn,           {.v = (const char *[]){ "brightness", "-5", NULL } } },  // brightness down
-  { 0, XF86XK_MonBrightnessUp,                  spawn,           {.v = (const char *[]){ "brightness", "+5", NULL } } },  // grightness up
+  { 0, XF86XK_AudioMute,                        spawn,          SHCMD("pamixer -t; kill -10 $(pidof slstatus)") },                 // volume mute
+  { 0, XF86XK_AudioLowerVolume,	                spawn,          SHCMD("pamixer --allow-boost -d 2; kill -10 $(pidof slstatus)") }, // volume down
+  { 0, XF86XK_AudioRaiseVolume,                 spawn,          SHCMD("pamixer --allow-boost -i 2; kill -10 $(pidof slstatus)") }, // volume up
+  /* { 0, XF86XK_AudioMute,                        spawn,          SHCMD("pamixer -t; kill -35 $(pidof slbar)") },                 // volume mute */
+  /* { 0, XF86XK_AudioLowerVolume,	                spawn,          SHCMD("pamixer --allow-boost -d 2; kill -35 $(pidof slbar)") }, // volume down */
+  /* { 0, XF86XK_AudioRaiseVolume,                 spawn,          SHCMD("pamixer --allow-boost -i 2; kill -35 $(pidof slbar)") }, // volume up */
+  { 0, XF86XK_AudioMicMute,                     spawn,          SHCMD("pactl set-source-mute @DEFAULT_SOURCE@ toggle") }, // mic mute
+  { 0, XF86XK_MonBrightnessDown,                spawn,          {.v = (const char *[]){ "brightness", "-5", NULL } } },  // brightness down
+  { 0, XF86XK_MonBrightnessUp,                  spawn,          {.v = (const char *[]){ "brightness", "+5", NULL } } },  // grightness up
 };
 
 /* button definitions */
