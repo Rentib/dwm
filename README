@@ -46,11 +46,3 @@ Configuration
 -------------
 The configuration of dwm is done by creating a custom config.h
 and (re)compiling the source code.
-
-Patches
--------
-- [actualfullscreen](./patches/dwm-actualfullscreen-6.3.diff) - adds a function to toggle selected client's fullscreen
-- [movestack](./patches/dwm-movestack-6.3.diff) - adds a function to move selected client up/down the stack
-- [shiftview](./patches/dwm-shiftview.c) - adds a function to switch to next/previous tag
-- [status2d](./patches/dwm-status2d-6.3.diff) - allows for colors and drawing in statusbar
-- [toggleborder](./patches/dwm-toggleborder-6.3.diff) - adds a function to toggle border of selected client, doesn't work on floating windows.

@@ -1,6 +1,6 @@
 .TH DWM 1 dwm\-VERSION
 .SH NAME
-dwm \- dynamic window manager (Stanisław Bitner <https://github.com/Rentib>'s build)
+dwm \- dynamic window manager
 .SH SYNOPSIS
 .B dwm
 .RB [ \-v ]
@@ -42,151 +42,116 @@ is read and displayed in the status text area. It can be set with the
 .BR xsetroot (1)
 command.
 .TP
-.B Button1 (Left Click)
+.B Button1
 click on a tag label to display all windows with that tag, click on the layout
 label toggles between tiled and floating layout.
 .TP
-.B Button3 (Right Click)
+.B Button3
 click on a tag label adds/removes all windows with that tag to/from the view.
 .TP
-.B Super\-Button1
+.B Mod1\-Button1
 click on a tag label applies that tag to the focused window.
 .TP
-.B Super\-Button3
+.B Mod1\-Button3
 click on a tag label adds/removes that tag to/from the focused window.
 .SS Keyboard commands
 .TP
-.B Super\-Tab
-Go to next tag.
+.B Mod1\-Shift\-Return
+Start
+.BR st(1).
 .TP
-.B Super\-Shift\-Tab
-Go to previous tag.
+.B Mod1\-p
+Spawn
+.BR dmenu(1)
+for launching other programs.
 .TP
-.B Super\-Shift\-q
-Kill selected window.
+.B Mod1\-,
+Focus previous screen, if any.
 .TP
-.B Super\-e
-Set tiling layout.
+.B Mod1\-.
+Focus next screen, if any.
 .TP
-.B Super\-E
-Exit dwm.
+.B Mod1\-Shift\-,
+Send focused window to previous screen, if any.
 .TP
-.B Super\-r
-Set floating layout.
+.B Mod1\-Shift\-.
+Send focused window to next screen, if any.
 .TP
-.B Super\-t
-Set monocle layout.
+.B Mod1\-b
+Toggles bar on and off.
 .TP
-.B Super\-o/O
-Increase/Decrease number of windows in master area.
+.B Mod1\-t
+Sets tiled layout.
 .TP
-.B Super\-p/P
-Toggle/Stop mpd.
+.B Mod1\-f
+Sets floating layout.
 .TP
-.B Super\-d/D
-Start .BR dmenu(1)/passmenu(1).
+.B Mod1\-m
+Sets monocle layout.
 .TP
-.B Super\-f
-Toggle fullscreen for selected window.
+.B Mod1\-space
+Toggles between current and previous layout.
 .TP
-.B Super\-F
-Start gui file manager.
+.B Mod1\-j
+Focus next window.
 .TP
-.B Super\-h/l
-Decrease/Increase master area size.
+.B Mod1\-k
+Focus previous window.
 .TP
-.B Super\-j/k
-Go to next/previous window in the stack.
+.B Mod1\-i
+Increase number of windows in master area.
 .TP
-.B Super\-J/K
-Move selected window down/up the stack.
+.B Mod1\-d
+Decrease number of windows in master area.
 .TP
-.B Super\-Return
-Start terminal.
-.BR st.
+.B Mod1\-l
+Increase master area size.
 .TP
-.B Super\-X
-Start shutdown script.
+.B Mod1\-h
+Decrease master area size.
 .TP
-.B Super\-b
-Start browser.
+.B Mod1\-Return
+Zooms/cycles focused window to/from master area (tiled layouts only).
 .TP
-.B Super\-Alt\-b/B
-Toggle bar/border visibility.
+.B Mod1\-Shift\-c
+Close focused window.
 .TP
-.B Super\-N
-Restart dunst.
+.B Mod1\-Shift\-space
+Toggle focused window between tiled and floating state.
 .TP
-.B Super\-m
-Start music player.
-.BR ncmpcpp.
+.B Mod1\-Tab
+Toggles to the previously selected tags.
 .TP
-.B Super\-comma/period
-Previous/Next song.
-.TP
-.B Super\-Shift-\-comma/period
-Backward/Forward song by 10 seconds.
-.TP
-.B Super\-Space
-Move selected window to master area.
-.TP
-.B Super\-Shift\-Space
-Toggle between tiling and floating modes for selected window.
-.TP
-.B Print screen
-Take a screenshot.
-.TP
-.B Shift\-Print screen
-Take a screenshot and save it into clipboard.
-.TP
-.B Super\-PageUp/PageDown
-Go to next/previous tag.
-.TP
-.B Super\-LeftArrow/RightArrow
-Focus previous/next monitor.
-.TP
-.B Super\-F1
-Show manpage for this build of .BR dwm in pdf.
-.TP
-.B Super\-Shift\-[1..n]
+.B Mod1\-Shift\-[1..n]
 Apply nth tag to focused window.
 .TP
-.B Super\-Shift\-0
+.B Mod1\-Shift\-0
 Apply all tags to focused window.
 .TP
-.B Super\-Control\-Shift\-[1..n]
+.B Mod1\-Control\-Shift\-[1..n]
 Add/remove nth tag to/from focused window.
 .TP
-.B Super\-[1..n]
+.B Mod1\-[1..n]
 View all windows with nth tag.
 .TP
-.B Super\-0
+.B Mod1\-0
 View all windows with any tag.
 .TP
-.B Super\-Control\-[1..n]
+.B Mod1\-Control\-[1..n]
 Add/remove all windows with nth tag to/from the view.
 .TP
-.B Super\-Shift\-q
+.B Mod1\-Shift\-q
 Quit dwm.
 .SS Mouse commands
 .TP
-.B Super\-Button1
+.B Mod1\-Button1
 Move focused window while dragging. Tiled windows will be toggled to the floating state.
 .TP
-.B Super\-Button2
+.B Mod1\-Button2
 Toggles focused window between floating and tiled state.
 .TP
-.B Super\-Button3
+.B Mod1\-Button3
 Resize focused window while dragging. Tiled windows will be toggled to the floating state.
-.TP
-.B AudioMute/AudioMicMute
-Toggle audio/microphone mute.
-.TP
-.B AudioLowerVolume/AudioRaiseVolume
-Lower/Raise audio volume
-.TP
-.B MonBrightnessDown/MonBrightnessUp
-Lower/Raise monitor brightness.
 .SH CUSTOMIZATION
 dwm is customized by creating a custom config.h and (re)compiling the source
 code. This keeps it fast, secure and simple.
@@ -208,4 +173,4 @@ or
 XToolkit/XAWT backend can recognize) or when using OpenJDK setting the environment variable
 .BR _JAVA_AWT_WM_NONREPARENTING=1 .
 .SH BUGS
-Send all bug reports with a patch to hackers@suckless.org or create an issue/pull request on my github (https://github.com/Rentib/dwm).
+Send all bug reports with a patch to hackers@suckless.org.
