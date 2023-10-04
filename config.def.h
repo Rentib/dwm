@@ -108,8 +108,8 @@ static const Key keys[] = {
 	/* { MODKEY|ShiftMask,             XK_w,      spawn,          SHCMD("") }, */
 	{ MODKEY,                       XK_e,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY|ShiftMask,             XK_e,      quit,           {0} },
-	{ MODKEY,                       XK_e,      setlayout,      {.v = &layouts[1]} },
-	{ MODKEY|ShiftMask,             XK_e,      setlayout,      {.v = &layouts[2]} },
+	{ MODKEY,                       XK_r,      setlayout,      {.v = &layouts[1]} },
+	{ MODKEY|ShiftMask,             XK_r,      setlayout,      {.v = &layouts[2]} },
 	{ MODKEY,                       XK_t,      spawn,          {.v = (const char*[]){ "toggle-touchpad", NULL } } },
 	{ MODKEY|ShiftMask,             XK_t,      spawn,          {.v = (const char*[]){ "toggle-xbanish", NULL } } },
 	/* { MODKEY,                       XK_y,      spawn,          SHCMD("") }, */
