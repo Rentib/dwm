@@ -483,6 +483,7 @@ swallow(Client *p, Client *c)
 	Window w = p->win;
 	p->win = c->win;
 	c->win = w;
+	updateicon(p);
 	updatetitle(p);
 	XMoveResizeWindow(dpy, p->win, p->x, p->y, p->w, p->h);
 	arrange(p->mon);
@@ -500,6 +501,7 @@ unswallow(Client *c)
 
 	/* unfullscreen the client */
 	setfullscreen(c, 0);
+	updateicon(c);
 	updatetitle(c);
 	arrange(c->mon);
 	XMapWindow(dpy, c->win);
