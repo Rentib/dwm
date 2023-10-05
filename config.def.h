@@ -73,14 +73,15 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-#define menucmd(menu_str) {                         \
-	menu_str, "-m", dmenumon, "-fn", dmenufont, \
-	"-nb", normbgcolor, "-nf", normfgcolor,     \
-	"-sb", selbordercolor, "-sf", selfgcolor,   \
-	NULL,                                       \
-}
-static const char *dmenucmd[] = menucmd("dmenu_run");
-static const char *passmenucmd[] = menucmd("passmenu");
+#define dmenu_opts \
+	"-m", dmenumon, "-fn", dmenufont, \
+	"-nb", normbgcolor, "-nf", normfgcolor, \
+	"-sb", selbordercolor, "-sf", selfgcolor
+
+static const char *dmenucmd[] = { "dmenu_run", dmenu_opts, NULL };
+static const char *passmenucmd[] = { "passmenu", "-i", dmenu_opts, NULL };
+static const char *shutdownmenucmd[] = { "shutdownmenu", dmenu_opts, NULL };
+
 static const char *termcmd[]  = { TERMINAL, NULL };
 
 #include "functions.c"         /* additional functions */
@@ -157,7 +158,7 @@ static const Key keys[] = {
 	/* { MODKEY,                       XK_z,      spawn,          SHCMD("") }, */
 	/* { MODKEY|ShiftMask,             XK_z,      spawn,          SHCMD("") }, */
 	/* { MODKEY,                       XK_x,      spawn,          SHCMD("") }, */
-	{ MODKEY|ShiftMask,             XK_x,      spawn,          {.v = (const char*[]){ "shutdown_script", NULL }} },
+	{ MODKEY|ShiftMask,             XK_x,      spawn,          {.v = shutdownmenucmd } },
 	/* { MODKEY,                       XK_c,      spawn,          SHCMD("") }, */
 	/* { MODKEY|ShiftMask,             XK_c,      spawn,          SHCMD("") }, */
 	/* { MODKEY,                       XK_v,      spawn,          SHCMD("") }, */
