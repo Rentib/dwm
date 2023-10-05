@@ -73,14 +73,14 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = {
-	"dmenu_run",
-	"-fn", dmenufont,
-	"-nb", normbgcolor,
-	"-nf", normfgcolor,
-	"-sb", selbordercolor,
-	"-sf", selfgcolor,
-	NULL };
+#define menucmd(menu_str) {                         \
+	menu_str, "-m", dmenumon, "-fn", dmenufont, \
+	"-nb", normbgcolor, "-nf", normfgcolor,     \
+	"-sb", selbordercolor, "-sf", selfgcolor,   \
+	NULL,                                       \
+}
+static const char *dmenucmd[] = menucmd("dmenu_run");
+static const char *passmenucmd[] = menucmd("passmenu");
 static const char *termcmd[]  = { TERMINAL, NULL };
 
 #include "functions.c"         /* additional functions */
@@ -134,7 +134,7 @@ static const Key keys[] = {
 	/* { MODKEY,                       XK_s,      spawn,          SHCMD("") }, */
 	/* { MODKEY|ShiftMask,             XK_s,      spawn,          SHCMD("") }, */
 	{ MODKEY,                       XK_d,      spawn,          {.v = dmenucmd } },
-	{ MODKEY|ShiftMask,             XK_d,      spawn,          {.v = (const char*[]){ "passmenu", "-i", NULL } } },
+	{ MODKEY|ShiftMask,             XK_d,      spawn,          {.v = passmenucmd } },
 	{ MODKEY,                       XK_f,      togglefullscr,  {0} },
 	{ MODKEY|ShiftMask,             XK_f,      spawn,          SHCMD("$GUIFILEMANAGER") },
 	/* { MODKEY,                       XK_g,      spawn,          SHCMD("") }, */
