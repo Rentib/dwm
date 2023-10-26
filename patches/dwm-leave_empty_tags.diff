@@ -1,0 +1,45 @@
+From 5075d44bb35626d99c6ab7a11b07077a97bfbbc3 Mon Sep 17 00:00:00 2001
+From: Rentib <sbitner420@tutanota.com>
+Date: Wed, 11 Oct 2023 09:12:00 +0200
+Subject: [PATCH] leave empty tag
+
+Simple patch that goes to the leftmost tag with at least 1 open client,
+if the last opened client is killed in all selected tags.
+---
+ dwm.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
+
+diff --git a/dwm.c b/dwm.c
+index f1d86b2..652983c 100644
+--- a/dwm.c
++++ b/dwm.c
+@@ -1780,6 +1780,7 @@ unmanage(Client *c, int destroyed)
+ {
+ 	Monitor *m = c->mon;
+ 	XWindowChanges wc;
++	unsigned occ = 0;
+ 
+ 	detach(c);
+ 	detachstack(c);
+@@ -1799,6 +1800,18 @@ unmanage(Client *c, int destroyed)
+ 	focus(NULL);
+ 	updateclientlist();
+ 	arrange(m);
++
++	if (m != selmon)
++		return;
++
++	for (c = m->clients; c; c = c->next)
++		occ |= c->tags;
++
++	if (!occ || occ & selmon->tagset[selmon->seltags])
++		return;
++
++	/* lsb of occ == leftmost tag with at least 1 client */
++	view(&(Arg){.i = occ & -occ });
+ }
+ 
+ void
+-- 
+2.42.0
+
