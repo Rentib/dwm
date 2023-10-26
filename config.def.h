@@ -200,12 +200,9 @@ static const Key keys[] = {
 	/* { MODKEY,                       XK_F11,    spawn,          SHCMD("") }, */
 	{ MODKEY,                       XK_F12,    spawn,          {.v = (const char *[]){ "toggle_theme", NULL }} }, // change global theme
 
-	{ 0, XF86XK_AudioMute,                     spawn,          SHCMD("pamixer -t; kill -10 $(pidof slstatus)") },                 // volume mute
-	{ 0, XF86XK_AudioLowerVolume,	           spawn,          SHCMD("pamixer --allow-boost -d 2; kill -10 $(pidof slstatus)") }, // volume down
-	{ 0, XF86XK_AudioRaiseVolume,              spawn,          SHCMD("pamixer --allow-boost -i 2; kill -10 $(pidof slstatus)") }, // volume up
-	/* { 0, XF86XK_AudioMute,                     spawn,          SHCMD("pamixer -t; kill -35 $(pidof slbar)") },                 // volume mute */
-	/* { 0, XF86XK_AudioLowerVolume,              spawn,          SHCMD("pamixer --allow-boost -d 2; kill -35 $(pidof slbar)") }, // volume down */
-	/* { 0, XF86XK_AudioRaiseVolume,              spawn,          SHCMD("pamixer --allow-boost -i 2; kill -35 $(pidof slbar)") }, // volume up */
+	{ 0, XF86XK_AudioMute,                     spawn,          SHCMD("wpctl set-mute @DEFAULT_SINK@ toggle; kill -10 $(pidof slstatus)") }, // volume mute
+	{ 0, XF86XK_AudioLowerVolume,	           spawn,          SHCMD("wpctl set-volume @DEFAULT_SINK@ 2%-; kill -10 $(pidof slstatus)") }, // volume down
+	{ 0, XF86XK_AudioRaiseVolume,              spawn,          SHCMD("wpctl set-volume @DEFAULT_SINK@ 2%+; kill -10 $(pidof slstatus)") }, // volume up
 	{ 0, XF86XK_AudioMicMute,                  spawn,          SHCMD("pactl set-source-mute @DEFAULT_SOURCE@ toggle") }, // mic mute
 	{ 0, XF86XK_MonBrightnessDown,             spawn,          {.v = (const char *[]){ "brightness", "-5", NULL } } },  // brightness down
 	{ 0, XF86XK_MonBrightnessUp,               spawn,          {.v = (const char *[]){ "brightness", "+5", NULL } } },  // grightness up
