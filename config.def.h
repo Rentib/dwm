@@ -211,6 +211,16 @@ static const Key keys[] = {
 	{ 0, XF86XK_MonBrightnessUp,               spawn,          {.v = (const char *[]){ "brightness", "+5", NULL } } },  // grightness up
 };
 
+static const StatusCmd statuscmds[] = {
+	{ "statuscmd-clock",    1 },
+	{ "statuscmd-calendar", 2 },
+	{ "statuscmd-battery",  3 },
+	{ "statuscmd-wifi",     4 },
+	{ "statuscmd-volume",   5 },
+	{ "statuscmd-music",    6 },
+};
+static const char *statuscmd[] = { "/bin/sh", "-c", NULL, NULL };
+
 /* button definitions */
 /* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle, ClkClientWin, or ClkRootWin */
 static const Button buttons[] = {
@@ -218,7 +228,11 @@ static const Button buttons[] = {
 	{ ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
 	{ ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
 	{ ClkWinTitle,          0,              Button2,        zoom,           {0} },
-	{ ClkStatusText,        0,              Button2,        spawn,          {.v = termcmd } },
+	{ ClkStatusText,        0,              Button1,        spawn,          {.v = statuscmd } },
+	{ ClkStatusText,        0,              Button2,        spawn,          {.v = statuscmd } },
+	{ ClkStatusText,        0,              Button3,        spawn,          {.v = statuscmd } },
+	{ ClkStatusText,        0,              Button4,        spawn,          {.v = statuscmd } },
+	{ ClkStatusText,        0,              Button5,        spawn,          {.v = statuscmd } },
 	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
 	{ ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
 	{ ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
@@ -227,4 +241,3 @@ static const Button buttons[] = {
 	{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
 	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
 };
-
